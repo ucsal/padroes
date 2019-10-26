@@ -17,6 +17,7 @@ import java.awt.geom.Rectangle2D;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.swing.DebugGraphics;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -36,6 +37,7 @@ public class Principal extends JFrame implements ActionListener,MouseListener {
 	
 	private JButton botaoQuadrado = new JButton("QUADRADO");
 	private JButton botaoCirculo = new JButton("CIRCULO");
+	private JButton botaoApagar = new JButton("APAGAR");
 	
 	private String selecionado = "";
 
@@ -55,6 +57,7 @@ public class Principal extends JFrame implements ActionListener,MouseListener {
         botoes.setLayout(new GridLayout(2, 1));
         botoes.add(botaoQuadrado);
         botoes.add(botaoCirculo);
+        botoes.add(botaoApagar);
         JPanel lateral = new JPanel();
         lateral.add(botoes);
         //Painel lateral
@@ -68,7 +71,7 @@ public class Principal extends JFrame implements ActionListener,MouseListener {
         //ACOES
         botaoCirculo.addActionListener(this);
         botaoQuadrado.addActionListener(this);
-
+        botaoApagar.addActionListener(this);
         painel.addMouseListener(this);
 
 
@@ -88,6 +91,16 @@ public class Principal extends JFrame implements ActionListener,MouseListener {
     	}
     	if(botao.getText().contains("CIRCULO")) {
         	selecionado = "CIRCULO";
+    	}
+    	if(botao.getText().contains("APAGAR")) {
+    		//figuras.clear();
+    		System.out.println("Apagou");
+            	//for(Shape figura : figuras) {
+            		//figuras.remove(figura);
+            	//}
+            figuras.clear();
+    		selecionado = "APAGAR";
+    		this.painel.updateUI();
     	}
 
     }
