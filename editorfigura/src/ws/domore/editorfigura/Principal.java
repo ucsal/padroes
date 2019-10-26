@@ -34,6 +34,7 @@ public class Principal extends JFrame implements ActionListener,MouseListener {
 	 */
 	private static final long serialVersionUID = 1L;
 	
+	//comentario
 	private JButton botaoQuadrado = new JButton("QUADRADO");
 	private JButton botaoCirculo = new JButton("CIRCULO");
 	
