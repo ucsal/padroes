@@ -33,17 +33,17 @@ public class Principal extends JFrame implements ActionListener,MouseListener {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
-	//comentario
+
+  //comentario
 	private JButton botaoQuadrado = new JButton("QUADRADO");
 	private JButton botaoCirculo = new JButton("CIRCULO");
-	
+  
 	private String selecionado = "";
 
 	private Set<Shape> figuras = new HashSet<Shape>();
 	
 	//Criando um JPanel com layoutManager null
-    private JPanel painel = new MeuPanel(null);
+    private JPanel painel = new MeuPanel(null, figuras);
 
     
     public Principal() {
@@ -54,8 +54,10 @@ public class Principal extends JFrame implements ActionListener,MouseListener {
         //Interface
         JPanel botoes = new JPanel();
         botoes.setLayout(new GridLayout(2, 1));
-        botoes.add(botaoQuadrado);
-        botoes.add(botaoCirculo);
+		JButton botaoQuadrado = new JButton("QUADRADO");
+		botoes.add(botaoQuadrado);
+		JButton botaoCirculo = new JButton("CIRCULO");
+		botoes.add(botaoCirculo);
         JPanel lateral = new JPanel();
         lateral.add(botoes);
         //Painel lateral
@@ -129,24 +131,6 @@ public class Principal extends JFrame implements ActionListener,MouseListener {
 	@Override
 	public void mouseExited(MouseEvent e) {
 		
-	}
-	
-	class MeuPanel extends JPanel {
-		
-		private static final long serialVersionUID = 1L;
-
-		public MeuPanel(LayoutManager layoutManager) {
-			super(layoutManager,true);
-		}
-		
-		@Override
-		public void paint(Graphics g) {
-			super.paint(g);
-			Graphics2D g2d = (Graphics2D) g;
-			for (Shape f : figuras) {
-				g2d.draw(f);
-			}
-		}
 	}
 	
 }
