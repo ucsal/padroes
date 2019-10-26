@@ -32,16 +32,12 @@ public class Principal extends JFrame implements ActionListener, MouseListener {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private JButton botaoQuadrado = new JButton("QUADRADO");
-	private JButton botaoCirculo = new JButton("CIRCULO");
-	private JButton botaoLimpar = new JButton("LIMPAR ULTIMO OBJETO");
-
 	private String selecionado = "";
 
 	private Set<Shape> figuras = new HashSet<Shape>();
 
 	// Criando um JPanel com layoutManager null
-	private JPanel painel = new MeuPanel(null);
+	private JPanel painel = new MeuPanel(null, figuras);
 
 	public Principal() {
 		// ITTULO DA JANELA
@@ -50,9 +46,12 @@ public class Principal extends JFrame implements ActionListener, MouseListener {
 		// Interface
 		JPanel botoes = new JPanel();
 		botoes.setLayout(new GridLayout(2, 1));
+		JButton botaoQuadrado = new JButton("QUADRADO");
 		botoes.add(botaoQuadrado);
+		JButton botaoCirculo = new JButton("CIRCULO");
 		botoes.add(botaoCirculo);
-		botoes.add(botaoLimpar);
+		JButton botaoLimparUltimoDesenho = new JButton("LIMPAR ULTIMO OBJETO");
+		botoes.add(botaoLimparUltimoDesenho);
 		JPanel lateral = new JPanel();
 		lateral.add(botoes);
 		// Painel lateral
@@ -65,7 +64,7 @@ public class Principal extends JFrame implements ActionListener, MouseListener {
 		// ACOES
 		botaoCirculo.addActionListener(this);
 		botaoQuadrado.addActionListener(this);
-		botaoLimpar.addActionListener(this);
+		botaoLimparUltimoDesenho.addActionListener(this);
 
 		painel.addMouseListener(this);
 
@@ -141,24 +140,6 @@ public class Principal extends JFrame implements ActionListener, MouseListener {
 	@Override
 	public void mouseExited(MouseEvent e) {
 
-	}
-
-	class MeuPanel extends JPanel {
-
-		private static final long serialVersionUID = 1L;
-
-		public MeuPanel(LayoutManager layoutManager) {
-			super(layoutManager, true);
-		}
-
-		@Override
-		public void paint(Graphics g) {
-			super.paint(g);
-			Graphics2D g2d = (Graphics2D) g;
-			for (Shape f : figuras) {
-				g2d.draw(f);
-			}
-		}
 	}
 
 }
