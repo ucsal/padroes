@@ -46,7 +46,6 @@ public class Principal extends JFrame implements ActionListener,MouseListener {
         //ITTULO DA JANELA
         setTitle("FIGURAS");
         
-        
         //Interface
         JPanel botoes = new JPanel();
         botoes.setLayout(new GridLayout(2, 1));
@@ -69,8 +68,6 @@ public class Principal extends JFrame implements ActionListener,MouseListener {
         botaoQuadrado.addActionListener(this);
 
         painel.addMouseListener(this);
-
-
 
         this.setSize(Toolkit.getDefaultToolkit().getScreenSize().width/2, Toolkit.getDefaultToolkit().getScreenSize().height/2);
         
