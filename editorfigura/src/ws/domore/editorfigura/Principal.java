@@ -39,12 +39,13 @@ public class Principal extends JFrame implements ActionListener,MouseListener {
 	private JButton botaoCirculo = new JButton("CIRCULO");
 	private JButton botaoApagar = new JButton("APAGAR");
 	
+
 	private String selecionado = "";
 
 	private Set<Shape> figuras = new HashSet<Shape>();
 	
 	//Criando um JPanel com layoutManager null
-    private JPanel painel = new MeuPanel(null);
+    private JPanel painel = new MeuPanel(null, figuras);
 
     
     public Principal() {
@@ -141,24 +142,6 @@ public class Principal extends JFrame implements ActionListener,MouseListener {
 	@Override
 	public void mouseExited(MouseEvent e) {
 		
-	}
-	
-	class MeuPanel extends JPanel {
-		
-		private static final long serialVersionUID = 1L;
-
-		public MeuPanel(LayoutManager layoutManager) {
-			super(layoutManager,true);
-		}
-		
-		@Override
-		public void paint(Graphics g) {
-			super.paint(g);
-			Graphics2D g2d = (Graphics2D) g;
-			for (Shape f : figuras) {
-				g2d.draw(f);
-			}
-		}
 	}
 	
 }
