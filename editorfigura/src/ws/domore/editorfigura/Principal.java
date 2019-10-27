@@ -1,5 +1,6 @@
 package ws.domore.editorfigura;
 
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Graphics;
@@ -16,6 +17,10 @@ import java.awt.geom.Ellipse2D;
 import java.awt.geom.Rectangle2D;
 import java.util.HashSet;
 import java.util.Set;
+import java.awt.geom.Line2D;
+import java.util.HashSet;
+import java.util.Set;
+
 
 import javax.swing.DebugGraphics;
 import javax.swing.JButton;
@@ -38,7 +43,8 @@ public class Principal extends JFrame implements ActionListener,MouseListener {
 	private JButton botaoQuadrado = new JButton("QUADRADO");
 	private JButton botaoCirculo = new JButton("CIRCULO");
 	private JButton botaoApagar = new JButton("APAGAR");
-	
+	private JButton botaoTriangulo = new JButton("TRIANGULO");
+  private JButton botaoLimparUltimoDesenho = new JButton("LIMPAR ULTIMO OBJETO");
 
 	private String selecionado = "";
 
@@ -52,15 +58,18 @@ public class Principal extends JFrame implements ActionListener,MouseListener {
         //ITTULO DA JANELA
         setTitle("FIGURAS");
         
-        
         //Interface
         JPanel botoes = new JPanel();
-        botoes.setLayout(new GridLayout(2, 1));
+        botoes.setLayout(new GridLayout(5, 1));
         botoes.add(botaoQuadrado);
         botoes.add(botaoCirculo);
+      	botoes.add(botaoTriangulo);
+    		botoes.add(botaoLimparUltimoDesenho);
         botoes.add(botaoApagar);
+
         JPanel lateral = new JPanel();
-        lateral.add(botoes);
+        lateral.add(botoes);      		
+      		
         //Painel lateral
         this.add(BorderLayout.WEST, lateral);
         //centro
@@ -72,10 +81,12 @@ public class Principal extends JFrame implements ActionListener,MouseListener {
         //ACOES
         botaoCirculo.addActionListener(this);
         botaoQuadrado.addActionListener(this);
+        botaoTriangulo.addActionListener(this);
         botaoApagar.addActionListener(this);
+        botaoLimparUltimoDesenho.addActionListener(this);
+
+
         painel.addMouseListener(this);
-
-
 
         this.setSize(Toolkit.getDefaultToolkit().getScreenSize().width/2, Toolkit.getDefaultToolkit().getScreenSize().height/2);
         
@@ -85,26 +96,41 @@ public class Principal extends JFrame implements ActionListener,MouseListener {
         this.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
     }
 
-    public void actionPerformed(ActionEvent e) {
-    	JButton botao = (JButton) e.getSource();
-    	if(botao.getText().contains("QUADRADO")) {
-        	selecionado = "QUADRADO";
-    	}
-    	if(botao.getText().contains("CIRCULO")) {
-        	selecionado = "CIRCULO";
-    	}
-    	if(botao.getText().contains("APAGAR")) {
-    		//figuras.clear();
-    		System.out.println("Apagou");
-            	//for(Shape figura : figuras) {
-            		//figuras.remove(figura);
-            	//}
-            figuras.clear();
-    		selecionado = "APAGAR";
-    		this.painel.updateUI();
-    	}
+	public void actionPerformed(ActionEvent e) {
+		int ultimo = 0;
+		int i = 0;
+		JButton botao = (JButton) e.getSource();
+		if (botao.getText().contains("QUADRADO")) {
+			selecionado = "QUADRADO";
+		}
+		if (botao.getText().contains("CIRCULO")) {
+			selecionado = "CIRCULO";
+		}
+    if(botao.getText().contains("TRIANGULO")) {
+			selecionado = "TRIANGULO";
+		}
+     if(botao.getText().contains("APAGAR")) {
+        figuras.clear();
+    		selecionado = "";
+     }
+		if (botao.getText().contains("LIMPAR ULTIMO OBJETO")) {
+  		selecionado = "";
 
-    }
+			if (!figuras.isEmpty()) {
+				ultimo = 0;
+				for (Shape shape : figuras) {
+					ultimo++;
+				}
+				for (Shape shape : figuras) {
+					i++;
+					if (ultimo == i) {
+						figuras.remove(shape);
+					}
+				}
+			}
+			this.painel.updateUI();
+		}
+	}
 
     public static void main(String[] args) {
         Principal j = new Principal();
@@ -120,7 +146,11 @@ public class Principal extends JFrame implements ActionListener,MouseListener {
         	figuras.add(new Ellipse2D.Double(x, y, 10, 10));
         }else if(selecionado.contentEquals("QUADRADO")) {
         	figuras.add(new Rectangle2D.Double(x, y, 10, 10));
-        }
+        }else if(selecionado.contentEquals("TRIANGULO")) {
+			figuras.add(new Line2D.Double(x - 10, y, x, y));
+			figuras.add(new Line2D.Double(x - 10, y - 10, x, y));
+			figuras.add(new Line2D.Double(x - 10, y - 10, x - 10, y));
+		}
         this.painel.updateUI();		
 	}
 
