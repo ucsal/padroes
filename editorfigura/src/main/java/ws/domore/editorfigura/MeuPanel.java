@@ -3,7 +3,6 @@ package ws.domore.editorfigura;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.LayoutManager;
-import java.awt.Shape;
 import java.util.Collection;
 
 import javax.swing.JPanel;
