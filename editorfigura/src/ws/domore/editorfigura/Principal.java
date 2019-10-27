@@ -22,6 +22,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 
+import javax.swing.DebugGraphics;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -38,6 +39,12 @@ public class Principal extends JFrame implements ActionListener,MouseListener {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
+	private JButton botaoQuadrado = new JButton("QUADRADO");
+	private JButton botaoCirculo = new JButton("CIRCULO");
+	private JButton botaoApagar = new JButton("APAGAR");
+	private JButton botaoTriangulo = new JButton("TRIANGULO");
+  private JButton botaoLimparUltimoDesenho = new JButton("LIMPAR ULTIMO OBJETO");
 
 	private String selecionado = "";
 
@@ -53,17 +60,16 @@ public class Principal extends JFrame implements ActionListener,MouseListener {
         
         //Interface
         JPanel botoes = new JPanel();
-        botoes.setLayout(new GridLayout(4, 1));
-		JButton botaoQuadrado = new JButton("QUADRADO");
-		botoes.add(botaoQuadrado);
-		JButton botaoCirculo = new JButton("CIRCULO");
-		botoes.add(botaoCirculo);
+        botoes.setLayout(new GridLayout(5, 1));
+        botoes.add(botaoQuadrado);
+        botoes.add(botaoCirculo);
+      	botoes.add(botaoTriangulo);
+    		botoes.add(botaoLimparUltimoDesenho);
+        botoes.add(botaoApagar);
+
         JPanel lateral = new JPanel();
-        lateral.add(botoes);
-      		JButton botaoTriangulo = new JButton("TRIANGULO");
-		botoes.add(botaoTriangulo);
-      		JButton botaoLimparUltimoDesenho = new JButton("LIMPAR ULTIMO OBJETO");
-		botoes.add(botaoLimparUltimoDesenho);
+        lateral.add(botoes);      		
+      		
         //Painel lateral
         this.add(BorderLayout.WEST, lateral);
         //centro
@@ -76,6 +82,8 @@ public class Principal extends JFrame implements ActionListener,MouseListener {
         botaoCirculo.addActionListener(this);
         botaoQuadrado.addActionListener(this);
         botaoTriangulo.addActionListener(this);
+        botaoApagar.addActionListener(this);
+        botaoLimparUltimoDesenho.addActionListener(this);
 
 
         painel.addMouseListener(this);
@@ -101,7 +109,13 @@ public class Principal extends JFrame implements ActionListener,MouseListener {
     if(botao.getText().contains("TRIANGULO")) {
 			selecionado = "TRIANGULO";
 		}
+     if(botao.getText().contains("APAGAR")) {
+        figuras.clear();
+    		selecionado = "";
+     }
 		if (botao.getText().contains("LIMPAR ULTIMO OBJETO")) {
+  		selecionado = "";
+
 			if (!figuras.isEmpty()) {
 				ultimo = 0;
 				for (Shape shape : figuras) {
