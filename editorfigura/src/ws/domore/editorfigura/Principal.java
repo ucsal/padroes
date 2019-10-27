@@ -21,15 +21,13 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-
 /**
  *
  * @author mariojp
  */
-public class Principal extends JFrame implements ActionListener,MouseListener {
+public class Principal extends JFrame implements ActionListener, MouseListener {
 
-    
-    /**
+	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
@@ -50,83 +48,102 @@ public class Principal extends JFrame implements ActionListener,MouseListener {
         //Interface
         JPanel botoes = new JPanel();
         botoes.setLayout(new GridLayout(2, 1));
+      
 		JButton botaoQuadrado = new JButton("QUADRADO");
 		botoes.add(botaoQuadrado);
 		JButton botaoCirculo = new JButton("CIRCULO");
 		botoes.add(botaoCirculo);
-        JPanel lateral = new JPanel();
-        lateral.add(botoes);
-        //Painel lateral
-        this.add(BorderLayout.WEST, lateral);
-        //centro
-        
-        painel.setBackground(Color.WHITE);
-        this.add(BorderLayout.CENTER, painel);
+      
+		JButton botaoLimparUltimoDesenho = new JButton("LIMPAR ULTIMO OBJETO");
+		botoes.add(botaoLimparUltimoDesenho);
+		JPanel lateral = new JPanel();
+		lateral.add(botoes);
+		// Painel lateral
+		this.add(BorderLayout.WEST, lateral);
+		// centro
 
-        
-        //ACOES
-        botaoCirculo.addActionListener(this);
-        botaoQuadrado.addActionListener(this);
+		painel.setBackground(Color.WHITE);
+		this.add(BorderLayout.CENTER, painel);
 
-        painel.addMouseListener(this);
+		// ACOES
+		botaoCirculo.addActionListener(this);
+		botaoQuadrado.addActionListener(this);
+		botaoLimparUltimoDesenho.addActionListener(this);
 
+		painel.addMouseListener(this);
 
+		this.setSize(Toolkit.getDefaultToolkit().getScreenSize().width / 2,
+				Toolkit.getDefaultToolkit().getScreenSize().height / 2);
 
-        this.setSize(Toolkit.getDefaultToolkit().getScreenSize().width/2, Toolkit.getDefaultToolkit().getScreenSize().height/2);
-        
-        setLocationRelativeTo(null);
+		setLocationRelativeTo(null);
 
-        this.setVisible(true);
-        this.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-    }
+		this.setVisible(true);
+		this.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+	}
 
-    public void actionPerformed(ActionEvent e) {
-    	JButton botao = (JButton) e.getSource();
-    	if(botao.getText().contains("QUADRADO")) {
-        	selecionado = "QUADRADO";
-    	}
-    	if(botao.getText().contains("CIRCULO")) {
-        	selecionado = "CIRCULO";
-    	}
+	public void actionPerformed(ActionEvent e) {
+		int ultimo = 0;
+		int i = 0;
+		JButton botao = (JButton) e.getSource();
+		if (botao.getText().contains("QUADRADO")) {
+			selecionado = "QUADRADO";
+		}
+		if (botao.getText().contains("CIRCULO")) {
+			selecionado = "CIRCULO";
+		}
+		if (botao.getText().contains("LIMPAR ULTIMO OBJETO")) {
+			if (!figuras.isEmpty()) {
+				ultimo = 0;
+				for (Shape shape : figuras) {
+					ultimo++;
+				}
+				for (Shape shape : figuras) {
+					i++;
+					if (ultimo == i) {
+						figuras.remove(shape);
+					}
+				}
+			}
+			this.painel.updateUI();
+		}
+	}
 
-    }
+	public static void main(String[] args) {
+		Principal j = new Principal();
+		j.setVisible(true);
 
-    public static void main(String[] args) {
-        Principal j = new Principal();
-        j.setVisible(true);
-
-    }
+	}
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-        int x = e.getX();
-        int y = e.getY();
-        if(selecionado.contentEquals("CIRCULO")) {
-        	figuras.add(new Ellipse2D.Double(x, y, 10, 10));
-        }else if(selecionado.contentEquals("QUADRADO")) {
-        	figuras.add(new Rectangle2D.Double(x, y, 10, 10));
-        }
-        this.painel.updateUI();		
+		int x = e.getX();
+		int y = e.getY();
+		if (selecionado.contentEquals("CIRCULO")) {
+			figuras.add(new Ellipse2D.Double(x, y, 10, 10));
+		} else if (selecionado.contentEquals("QUADRADO")) {
+			figuras.add(new Rectangle2D.Double(x, y, 10, 10));
+		}
+		this.painel.updateUI();
 	}
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		
+
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		
+
 	}
 
 	@Override
 	public void mouseEntered(MouseEvent e) {
-		
+
 	}
 
 	@Override
 	public void mouseExited(MouseEvent e) {
-		
+
 	}
-	
+
 }
