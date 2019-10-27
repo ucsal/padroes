@@ -1,17 +1,31 @@
 package ws.domore.editorfigura.model;
 
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Shape;
 
-public class Figura {
-	
-	private int altura;
-	private int largura;
-	
-	private int x;
-	private int y;
-	
-	private Color corLinha;
-	private Color corPreenchiento;
+public interface Figura {
 
+
+	Color getCorLinha();
+
+	void setCorLinha(Color corLinha);
+
+	Color getCorPreenchiento();
+
+	void setCorPreenchiento(Color corPreenchiento);
+
+	Double getAltura();
+
+	Double getLargura();
+
+	void setSize(Integer largura, Integer altura);
+
+	Double getX();
+
+	Double getY();
+
+	void setLocation(Integer x, Integer y);
+
+	Shape getShape();
 
 }

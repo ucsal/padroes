@@ -21,6 +21,11 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import ws.domore.editorfigura.model.Circulo;
+import ws.domore.editorfigura.model.Figura;
+import ws.domore.editorfigura.model.Quadrado;
+import ws.domore.editorfigura.model.Triangulo;
+
 /**
  *
  * @author mariojp
@@ -41,7 +46,7 @@ public class Principal extends JFrame implements ActionListener, MouseListener {
 
 	private String selecionado = "";
 
-	private List<Shape> figuras = new ArrayList<Shape>();
+	private List<Figura> figuras = new ArrayList<Figura>();
 
 	// Criando um JPanel com layoutManager null
 	private JPanel painel = new MeuPanel(null, figuras);
@@ -88,8 +93,6 @@ public class Principal extends JFrame implements ActionListener, MouseListener {
 	}
 
 	public void actionPerformed(ActionEvent e) {
-		int ultimo = 0;
-		int i = 0;
 		JButton botao = (JButton) e.getSource();
 		if (botao.getText().contains("QUADRADO")) {
 			selecionado = "QUADRADO";
@@ -127,13 +130,11 @@ public class Principal extends JFrame implements ActionListener, MouseListener {
 		int x = e.getX();
 		int y = e.getY();
 		if (selecionado.contentEquals("CIRCULO")) {
-			figuras.add(new Ellipse2D.Double(x, y, 10, 10));
+			figuras.add(new Circulo(x, y));
 		} else if (selecionado.contentEquals("QUADRADO")) {
-			figuras.add(new Rectangle2D.Double(x, y, 10, 10));
+			figuras.add(new Quadrado(x, y));
 		} else if (selecionado.contentEquals("TRIANGULO")) {
-			figuras.add(new Line2D.Double(x - 10, y, x, y));
-			figuras.add(new Line2D.Double(x - 10, y - 10, x, y));
-			figuras.add(new Line2D.Double(x - 10, y - 10, x - 10, y));
+			figuras.add(new Triangulo(x, y));
 		}
 		this.painel.updateUI();
 	}
