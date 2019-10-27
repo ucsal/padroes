@@ -55,6 +55,8 @@ public class Principal extends JFrame implements ActionListener,MouseListener {
 		botoes.add(botaoCirculo);
         JPanel lateral = new JPanel();
         lateral.add(botoes);
+      		JButton botaoLimparUltimoDesenho = new JButton("LIMPAR ULTIMO OBJETO");
+		botoes.add(botaoLimparUltimoDesenho);
         //Painel lateral
         this.add(BorderLayout.WEST, lateral);
         //centro
@@ -77,16 +79,32 @@ public class Principal extends JFrame implements ActionListener,MouseListener {
         this.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
     }
 
-    public void actionPerformed(ActionEvent e) {
-    	JButton botao = (JButton) e.getSource();
-    	if(botao.getText().contains("QUADRADO")) {
-        	selecionado = "QUADRADO";
-    	}
-    	if(botao.getText().contains("CIRCULO")) {
-        	selecionado = "CIRCULO";
-    	}
-
-    }
+	public void actionPerformed(ActionEvent e) {
+		int ultimo = 0;
+		int i = 0;
+		JButton botao = (JButton) e.getSource();
+		if (botao.getText().contains("QUADRADO")) {
+			selecionado = "QUADRADO";
+		}
+		if (botao.getText().contains("CIRCULO")) {
+			selecionado = "CIRCULO";
+		}
+		if (botao.getText().contains("LIMPAR ULTIMO OBJETO")) {
+			if (!figuras.isEmpty()) {
+				ultimo = 0;
+				for (Shape shape : figuras) {
+					ultimo++;
+				}
+				for (Shape shape : figuras) {
+					i++;
+					if (ultimo == i) {
+						figuras.remove(shape);
+					}
+				}
+			}
+			this.painel.updateUI();
+		}
+	}
 
     public static void main(String[] args) {
         Principal j = new Principal();
