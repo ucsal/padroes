@@ -21,13 +21,15 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+
 /**
  *
  * @author mariojp
  */
-public class Principal extends JFrame implements ActionListener, MouseListener {
+public class Principal extends JFrame implements ActionListener,MouseListener {
 
-	/**
+    
+    /**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
@@ -44,42 +46,38 @@ public class Principal extends JFrame implements ActionListener, MouseListener {
         //ITTULO DA JANELA
         setTitle("FIGURAS");
         
-        
         //Interface
         JPanel botoes = new JPanel();
         botoes.setLayout(new GridLayout(2, 1));
-      
 		JButton botaoQuadrado = new JButton("QUADRADO");
 		botoes.add(botaoQuadrado);
 		JButton botaoCirculo = new JButton("CIRCULO");
 		botoes.add(botaoCirculo);
-      
-		JButton botaoLimparUltimoDesenho = new JButton("LIMPAR ULTIMO OBJETO");
+        JPanel lateral = new JPanel();
+        lateral.add(botoes);
+      		JButton botaoLimparUltimoDesenho = new JButton("LIMPAR ULTIMO OBJETO");
 		botoes.add(botaoLimparUltimoDesenho);
-		JPanel lateral = new JPanel();
-		lateral.add(botoes);
-		// Painel lateral
-		this.add(BorderLayout.WEST, lateral);
-		// centro
+        //Painel lateral
+        this.add(BorderLayout.WEST, lateral);
+        //centro
+        
+        painel.setBackground(Color.WHITE);
+        this.add(BorderLayout.CENTER, painel);
 
-		painel.setBackground(Color.WHITE);
-		this.add(BorderLayout.CENTER, painel);
+        
+        //ACOES
+        botaoCirculo.addActionListener(this);
+        botaoQuadrado.addActionListener(this);
 
-		// ACOES
-		botaoCirculo.addActionListener(this);
-		botaoQuadrado.addActionListener(this);
-		botaoLimparUltimoDesenho.addActionListener(this);
+        painel.addMouseListener(this);
 
-		painel.addMouseListener(this);
+        this.setSize(Toolkit.getDefaultToolkit().getScreenSize().width/2, Toolkit.getDefaultToolkit().getScreenSize().height/2);
+        
+        setLocationRelativeTo(null);
 
-		this.setSize(Toolkit.getDefaultToolkit().getScreenSize().width / 2,
-				Toolkit.getDefaultToolkit().getScreenSize().height / 2);
-
-		setLocationRelativeTo(null);
-
-		this.setVisible(true);
-		this.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-	}
+        this.setVisible(true);
+        this.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+    }
 
 	public void actionPerformed(ActionEvent e) {
 		int ultimo = 0;
@@ -108,42 +106,42 @@ public class Principal extends JFrame implements ActionListener, MouseListener {
 		}
 	}
 
-	public static void main(String[] args) {
-		Principal j = new Principal();
-		j.setVisible(true);
+    public static void main(String[] args) {
+        Principal j = new Principal();
+        j.setVisible(true);
 
-	}
+    }
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		int x = e.getX();
-		int y = e.getY();
-		if (selecionado.contentEquals("CIRCULO")) {
-			figuras.add(new Ellipse2D.Double(x, y, 10, 10));
-		} else if (selecionado.contentEquals("QUADRADO")) {
-			figuras.add(new Rectangle2D.Double(x, y, 10, 10));
-		}
-		this.painel.updateUI();
+        int x = e.getX();
+        int y = e.getY();
+        if(selecionado.contentEquals("CIRCULO")) {
+        	figuras.add(new Ellipse2D.Double(x, y, 10, 10));
+        }else if(selecionado.contentEquals("QUADRADO")) {
+        	figuras.add(new Rectangle2D.Double(x, y, 10, 10));
+        }
+        this.painel.updateUI();		
 	}
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-
+		
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
-
+		
 	}
 
 	@Override
 	public void mouseEntered(MouseEvent e) {
-
+		
 	}
 
 	@Override
 	public void mouseExited(MouseEvent e) {
-
+		
 	}
-
+	
 }
