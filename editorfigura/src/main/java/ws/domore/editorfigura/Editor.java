@@ -15,6 +15,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import ws.domore.editorfigura.factory.FactoryFigura;
 import ws.domore.editorfigura.model.Circulo;
 import ws.domore.editorfigura.model.Figura;
 import ws.domore.editorfigura.model.Quadrado;
@@ -41,6 +42,8 @@ public class Editor extends JFrame implements ActionListener, MouseListener {
 	private String selecionado = "";
 
 	private List<Figura> figuras = new ArrayList<Figura>();
+
+	private FactoryFigura factoryFigura = new FactoryFigura();
 
 	// Criando um JPanel com layoutManager null
 	private JPanel painel = new MeuPanel(null, figuras);
@@ -119,13 +122,9 @@ public class Editor extends JFrame implements ActionListener, MouseListener {
 	public void mouseClicked(MouseEvent e) {
 		int x = e.getX();
 		int y = e.getY();
-		if (selecionado.contentEquals("CIRCULO")) {
-			figuras.add(new Circulo(x, y));
-		} else if (selecionado.contentEquals("QUADRADO")) {
-			figuras.add(new Quadrado(x, y));
-		} else if (selecionado.contentEquals("TRIANGULO")) {
-			figuras.add(new Triangulo(x, y));
-		}
+
+		figuras.add(factoryFigura.getFigura(x, y, selecionado));
+
 		this.painel.updateUI();
 	}
 
