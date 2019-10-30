@@ -1,5 +1,6 @@
 package ws.domore.editorfigura.factory;
 
+import ws.domore.editorfigura.enums.EnumFigura;
 import ws.domore.editorfigura.model.AbstractFigura;
 import ws.domore.editorfigura.model.Circulo;
 import ws.domore.editorfigura.model.Quadrado;
@@ -7,7 +8,7 @@ import ws.domore.editorfigura.model.Triangulo;
 import ws.domore.manager.Constantes;
 
 public class FactoryFigura {
-	
+
 	private static final String QUADRADO = Constantes.getProp("figura.quadrado");
 	private static final String TRIANGULO = Constantes.getProp("figura.triangulo");
 	private static final String CIRCULO = Constantes.getProp("figura.circulo");
@@ -22,7 +23,6 @@ public class FactoryFigura {
         if (figura.equals(CIRCULO)) {
             return new Circulo(x, y);
         }
-
         return null;
     }
 }

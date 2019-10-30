@@ -15,9 +15,6 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import ws.domore.editorfigura.factory.FactoryFigura;
-import ws.domore.editorfigura.model.Circulo;
-import ws.domore.editorfigura.model.Figura;
 import ws.domore.editorfigura.model.Quadrado;
 import ws.domore.editorfigura.model.Triangulo;
 import ws.domore.manager.Constantes;
@@ -50,7 +47,7 @@ public class Editor extends JFrame implements ActionListener, MouseListener {
 	private JButton botaoApagar = new JButton(APAGAR);
 
 
-	private String selecionado = "";
+	private EnumFigura selecionado = null;
 
 	private List<Figura> figuras = new ArrayList<Figura>();
 
@@ -113,11 +110,11 @@ public class Editor extends JFrame implements ActionListener, MouseListener {
 		}
 		if (botao.getText().contains(APAGAR)) {
 			figuras.clear();
-			selecionado = "";
+			selecionado = null;
 		}
-		if (botao.getText().contains("VOLTAR")) {
+		if (botao.getText().contains(VOLTAR)) {
 			//FIX NOT WORK FOR TRIANGULO
-			selecionado = "";
+			selecionado = null;
 			if (!figuras.isEmpty()) {
 				figuras.remove(figuras.size()-1);
 			}
