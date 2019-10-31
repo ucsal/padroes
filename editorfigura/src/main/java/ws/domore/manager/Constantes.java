@@ -10,7 +10,6 @@ public class Constantes {
 			Properties properties = new Properties();
 			properties.load(this.getClass().getClassLoader().getResourceAsStream("constantes.properties"));
 			
-			//in.close();
 			return properties.getProperty(key);
 		} catch (IOException e) {
 			e.printStackTrace();
