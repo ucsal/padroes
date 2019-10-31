@@ -5,6 +5,9 @@ import ws.domore.editorfigura.model.AbstractFigura;
 import ws.domore.editorfigura.model.Circulo;
 import ws.domore.editorfigura.model.Quadrado;
 import ws.domore.editorfigura.model.Triangulo;
+import ws.domore.manager.Constantes;
+
+import static ws.domore.editorfigura.enums.EnumFigura.TRIANGULO;
 
 public class FactoryFigura {
 
