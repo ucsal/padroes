@@ -33,14 +33,16 @@ public class Editor extends JFrame implements ActionListener, MouseListener {
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	private static final String QUADRADO = Constantes.getProp("figura.quadrado");
-	private static final String TRIANGULO = Constantes.getProp("figura.triangulo");
-	private static final String CIRCULO = Constantes.getProp("figura.circulo");
+	static Constantes constantes = new Constantes();
 	
-	private static final String VOLTAR = Constantes.getProp("botao.voltar");
-	private static final String APAGAR = Constantes.getProp("botao.apagar");
+	private static final String QUADRADO = constantes.getProp("figura.quadrado");
+	private static final String TRIANGULO = constantes.getProp("figura.triangulo");
+	private static final String CIRCULO = constantes.getProp("figura.circulo");
 	
-	private static final String FIGURAS = Constantes.getProp("titulo.figura");
+	private static final String VOLTAR = constantes.getProp("botao.voltar");
+	private static final String APAGAR = constantes.getProp("botao.apagar");
+	
+	private static final String FIGURAS = constantes.getProp("titulo.figura");
 
 	
 	private JButton botaoQuadrado = new JButton(QUADRADO);
