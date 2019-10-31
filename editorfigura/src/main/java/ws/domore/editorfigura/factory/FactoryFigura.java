@@ -7,22 +7,21 @@ import ws.domore.editorfigura.model.Quadrado;
 import ws.domore.editorfigura.model.Triangulo;
 import ws.domore.manager.Constantes;
 
+import static ws.domore.editorfigura.enums.EnumFigura.TRIANGULO;
+
 public class FactoryFigura {
 
-	private static final String QUADRADO = Constantes.getProp("figura.quadrado");
-	private static final String TRIANGULO = Constantes.getProp("figura.triangulo");
-	private static final String CIRCULO = Constantes.getProp("figura.circulo");
+
 	
-    public AbstractFigura getFigura(Integer x, Integer y, String figura) {
-        if (figura.equals(TRIANGULO)) {
-            return new Triangulo(x, y);
-        }
-        if (figura.equals(QUADRADO)) {
-            return new Quadrado(x, y);
-        }
-        if (figura.equals(CIRCULO)) {
-            return new Circulo(x, y);
-        }
+    public AbstractFigura getFigura(Integer x, Integer y, EnumFigura figura) {
+        switch (figura){
+            case TRIANGULO:
+                return new Triangulo(x, y);
+            case QUADRADO:
+                return new Quadrado(x, y);
+            case CIRCULO:
+                return new Circulo(x, y);
+         }
         return null;
     }
 }

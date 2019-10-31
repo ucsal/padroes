@@ -15,6 +15,9 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import ws.domore.editorfigura.enums.EnumFigura;
+import ws.domore.editorfigura.factory.FactoryFigura;
+import ws.domore.editorfigura.model.Figura;
 import ws.domore.editorfigura.model.Quadrado;
 import ws.domore.editorfigura.model.Triangulo;
 import ws.domore.manager.Constantes;
@@ -100,20 +103,19 @@ public class Editor extends JFrame implements ActionListener, MouseListener {
 	public void actionPerformed(ActionEvent e) {
 		JButton botao = (JButton) e.getSource();
 		if (botao.getText().contains(QUADRADO)) {
-			selecionado = QUADRADO;
+			selecionado = EnumFigura.QUADRADO;
 		}
 		if (botao.getText().contains(CIRCULO)) {
-			selecionado = CIRCULO;
+			selecionado = EnumFigura.CIRCULO;
 		}
 		if (botao.getText().contains(TRIANGULO)) {
-			selecionado = TRIANGULO;
+			selecionado = EnumFigura.TRIANGULO;
 		}
 		if (botao.getText().contains(APAGAR)) {
 			figuras.clear();
 			selecionado = null;
 		}
 		if (botao.getText().contains(VOLTAR)) {
-			//FIX NOT WORK FOR TRIANGULO
 			selecionado = null;
 			if (!figuras.isEmpty()) {
 				figuras.remove(figuras.size()-1);
