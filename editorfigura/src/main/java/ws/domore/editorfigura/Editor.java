@@ -113,29 +113,30 @@ public class Editor extends JFrame implements ActionListener, MouseListener {
 
 	public void actionPerformed(ActionEvent e) {
 		JButton botao = (JButton) e.getSource();
-
-		desenhaFiguraSelecionada(botao.getText());
-
-		this.painel.updateUI();
-
-	}
-
-	private void desenhaFiguraSelecionada(String txtBotao) {
-		if (txtBotao.contains(QUADRADO)) selecionado = EnumFigura.QUADRADO;
-		if (txtBotao.contains(CIRCULO)) selecionado = EnumFigura.CIRCULO;
-		if (txtBotao.contains(TRIANGULO)) selecionado = EnumFigura.TRIANGULO;
-
-		if (txtBotao.contains(APAGAR)) {
+		if (botao.getText().contains(QUADRADO)) {
+			selecionado = EnumFigura.QUADRADO;
+		}
+		if (botao.getText().contains(CIRCULO)) {
+			selecionado = EnumFigura.CIRCULO;
+		}
+		if (botao.getText().contains(TRIANGULO)) {
+			selecionado = EnumFigura.TRIANGULO;
+		}
+		if (botao.getText().contains(APAGAR)) {
 			figuras.clear();
 			selecionado = null;
 		}
-		if (txtBotao.contains(VOLTAR)) {
+		if (botao.getText().contains(VOLTAR)) {
 			selecionado = null;
 			if (!figuras.isEmpty()) {
 				figuras.remove(figuras.size()-1);
 			}
 		}
+		
+		this.painel.updateUI();
+
 	}
+
 
 
 	@Override
@@ -143,8 +144,7 @@ public class Editor extends JFrame implements ActionListener, MouseListener {
 		int x = e.getX();
 		int y = e.getY();
 
-		if (selecionado != null)
-			figuras.add(factoryFigura.getFigura(x, y, selecionado));
+		figuras.add(factoryFigura.getFigura(x, y, selecionado));
 
 		this.painel.updateUI();
 	}
