@@ -15,11 +15,12 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import ws.domore.editorfigura.enums.EnumFigura;
 import ws.domore.editorfigura.factory.FactoryFigura;
-import ws.domore.editorfigura.model.Circulo;
 import ws.domore.editorfigura.model.Figura;
 import ws.domore.editorfigura.model.Quadrado;
 import ws.domore.editorfigura.model.Triangulo;
+import ws.domore.manager.Constantes;
 
 /**
  *
@@ -31,15 +32,25 @@ public class Editor extends JFrame implements ActionListener, MouseListener {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
+	private static final String QUADRADO = Constantes.getProp("figura.quadrado");
+	private static final String TRIANGULO = Constantes.getProp("figura.triangulo");
+	private static final String CIRCULO = Constantes.getProp("figura.circulo");
+	
+	private static final String VOLTAR = Constantes.getProp("botao.voltar");
+	private static final String APAGAR = Constantes.getProp("botao.apagar");
+	
+	private static final String FIGURAS = Constantes.getProp("titulo.figura");
 
-	private JButton botaoQuadrado = new JButton("QUADRADO");
-	private JButton botaoCirculo = new JButton("CIRCULO");
-	private JButton botaoTriangulo = new JButton("TRIANGULO");
-	private JButton botaoLimparUltimoDesenho = new JButton("VOLTAR");
-	private JButton botaoApagar = new JButton("APAGAR");
+	
+	private JButton botaoQuadrado = new JButton(QUADRADO);
+	private JButton botaoCirculo = new JButton(CIRCULO);
+	private JButton botaoTriangulo = new JButton(TRIANGULO);
+	private JButton botaoLimparUltimoDesenho = new JButton(VOLTAR);
+	private JButton botaoApagar = new JButton(APAGAR);
 
 
-	private String selecionado = "";
+	private EnumFigura selecionado = null;
 
 	private List<Figura> figuras = new ArrayList<Figura>();
 
@@ -50,7 +61,7 @@ public class Editor extends JFrame implements ActionListener, MouseListener {
 
 	public Editor() {
 		// ITTULO DA JANELA
-		setTitle("FIGURAS");
+		setTitle(FIGURAS);
 
 		// Interface
 		JPanel botoes = new JPanel();
@@ -91,22 +102,21 @@ public class Editor extends JFrame implements ActionListener, MouseListener {
 
 	public void actionPerformed(ActionEvent e) {
 		JButton botao = (JButton) e.getSource();
-		if (botao.getText().contains("QUADRADO")) {
-			selecionado = "QUADRADO";
+		if (botao.getText().contains(QUADRADO)) {
+			selecionado = EnumFigura.QUADRADO;
 		}
-		if (botao.getText().contains("CIRCULO")) {
-			selecionado = "CIRCULO";
+		if (botao.getText().contains(CIRCULO)) {
+			selecionado = EnumFigura.CIRCULO;
 		}
-		if (botao.getText().contains("TRIANGULO")) {
-			selecionado = "TRIANGULO";
+		if (botao.getText().contains(TRIANGULO)) {
+			selecionado = EnumFigura.TRIANGULO;
 		}
-		if (botao.getText().contains("APAGAR")) {
+		if (botao.getText().contains(APAGAR)) {
 			figuras.clear();
-			selecionado = "";
+			selecionado = null;
 		}
-		if (botao.getText().contains("VOLTAR")) {
-			//FIX NOT WORK FOR TRIANGULO
-			selecionado = "";
+		if (botao.getText().contains(VOLTAR)) {
+			selecionado = null;
 			if (!figuras.isEmpty()) {
 				figuras.remove(figuras.size()-1);
 			}

@@ -3,9 +3,7 @@ package ws.domore.editorfigura.model;
 import java.awt.Color;
 import java.awt.Shape;
 
-public class AbstractFigura implements Figura {
-	
-	
+public abstract class AbstractFigura implements Figura {
 	private Shape shape; 
 		
 	private Color corLinha;
@@ -46,19 +44,21 @@ public class AbstractFigura implements Figura {
 		shape.getBounds().setLocation(x, y);
 	}
 
-	
 	@Override
 	public Color getCorLinha() {
 		return corLinha;
 	}
+
 	@Override
 	public void setCorLinha(Color corLinha) {
 		this.corLinha = corLinha;
 	}
+
 	@Override
 	public Color getCorPreenchiento() {
 		return corPreenchiento;
 	}
+
 	@Override
 	public void setCorPreenchiento(Color corPreenchiento) {
 		this.corPreenchiento = corPreenchiento;
