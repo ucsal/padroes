@@ -18,8 +18,6 @@ import javax.swing.JPanel;
 import ws.domore.editorfigura.enums.EnumFigura;
 import ws.domore.editorfigura.factory.FactoryFigura;
 import ws.domore.editorfigura.model.Figura;
-import ws.domore.editorfigura.model.Quadrado;
-import ws.domore.editorfigura.model.Triangulo;
 import ws.domore.manager.Constantes;
 
 /**
@@ -102,28 +100,35 @@ public class Editor extends JFrame implements ActionListener, MouseListener {
 
 	public void actionPerformed(ActionEvent e) {
 		JButton botao = (JButton) e.getSource();
-		if (botao.getText().contains(QUADRADO)) {
-			selecionado = EnumFigura.QUADRADO;
-		}
-		if (botao.getText().contains(CIRCULO)) {
-			selecionado = EnumFigura.CIRCULO;
-		}
-		if (botao.getText().contains(TRIANGULO)) {
-			selecionado = EnumFigura.TRIANGULO;
-		}
-		if (botao.getText().contains(APAGAR)) {
-			figuras.clear();
-			selecionado = null;
-		}
+		tipoBotaoSelecionado(botao,QUADRADO,EnumFigura.CIRCULO);
+		tipoBotaoSelecionado(botao,CIRCULO,EnumFigura.CIRCULO);
+		tipoBotaoSelecionado(botao,TRIANGULO,EnumFigura.TRIANGULO);
+		limparTela(botao);
+		apagarUltimaFigura(botao);
+		this.painel.updateUI();
+
+	}
+
+	private void apagarUltimaFigura(JButton botao) {
 		if (botao.getText().contains(VOLTAR)) {
 			selecionado = null;
 			if (!figuras.isEmpty()) {
 				figuras.remove(figuras.size()-1);
 			}
 		}
-		
-		this.painel.updateUI();
+	}
 
+	private void limparTela(JButton botao) {
+		if (botao.getText().contains(APAGAR)) {
+			figuras.clear();
+			selecionado = null;
+		}
+	}
+
+	private void tipoBotaoSelecionado(JButton botao, String figura, EnumFigura figuraEnum) {
+		if (botao.getText().contains(figura)) {
+			selecionado = figuraEnum;
+		}
 	}
 
 
