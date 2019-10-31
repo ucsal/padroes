@@ -18,8 +18,6 @@ import javax.swing.JPanel;
 import ws.domore.editorfigura.enums.EnumFigura;
 import ws.domore.editorfigura.factory.FactoryFigura;
 import ws.domore.editorfigura.model.Figura;
-import ws.domore.editorfigura.model.Quadrado;
-import ws.domore.editorfigura.model.Triangulo;
 import ws.domore.manager.Constantes;
 
 /**
@@ -62,7 +60,35 @@ public class Editor extends JFrame implements ActionListener, MouseListener {
 	private JPanel painel = new MeuPanel(null, figuras);
 
 	public Editor() {
-		// ITTULO DA JANELA
+		createWindow();
+		buttonActions();
+
+		painel.addMouseListener(this);
+
+		windowConfigs();
+	}
+
+	private void windowConfigs() {
+		this.setSize(Toolkit.getDefaultToolkit().getScreenSize().width / 2,
+				Toolkit.getDefaultToolkit().getScreenSize().height / 2);
+
+		setLocationRelativeTo(null);
+
+		this.setVisible(true);
+		this.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+	}
+
+	private void buttonActions() {
+		// ACOES
+		botaoCirculo.addActionListener(this);
+		botaoQuadrado.addActionListener(this);
+		botaoTriangulo.addActionListener(this);
+		botaoApagar.addActionListener(this);
+		botaoLimparUltimoDesenho.addActionListener(this);
+	}
+
+	private void createWindow() {
+		// TITULO DA JANELA
 		setTitle(FIGURAS);
 
 		// Interface
@@ -79,27 +105,10 @@ public class Editor extends JFrame implements ActionListener, MouseListener {
 
 		// Painel lateral
 		this.add(BorderLayout.WEST, lateral);
-		// centro
 
+		// Centro
 		painel.setBackground(Color.WHITE);
 		this.add(BorderLayout.CENTER, painel);
-
-		// ACOES
-		botaoCirculo.addActionListener(this);
-		botaoQuadrado.addActionListener(this);
-		botaoTriangulo.addActionListener(this);
-		botaoApagar.addActionListener(this);
-		botaoLimparUltimoDesenho.addActionListener(this);
-
-		painel.addMouseListener(this);
-
-		this.setSize(Toolkit.getDefaultToolkit().getScreenSize().width / 2,
-				Toolkit.getDefaultToolkit().getScreenSize().height / 2);
-
-		setLocationRelativeTo(null);
-
-		this.setVisible(true);
-		this.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 	}
 
 	public void actionPerformed(ActionEvent e) {
