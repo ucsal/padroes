@@ -113,7 +113,7 @@ public class Editor extends JFrame implements ActionListener, MouseListener {
 
 	public void actionPerformed(ActionEvent e) {
 		JButton botao = (JButton) e.getSource();
-		tipoBotaoSelecionado(botao,QUADRADO,EnumFigura.CIRCULO);
+		tipoBotaoSelecionado(botao,QUADRADO,EnumFigura.QUADRADO);
 		tipoBotaoSelecionado(botao,CIRCULO,EnumFigura.CIRCULO);
 		tipoBotaoSelecionado(botao,TRIANGULO,EnumFigura.TRIANGULO);
 		limparTela(botao);
