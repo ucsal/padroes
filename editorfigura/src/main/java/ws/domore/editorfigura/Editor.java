@@ -17,6 +17,8 @@ import javax.swing.JPanel;
 
 import ws.domore.editorfigura.enums.EnumFigura;
 import ws.domore.editorfigura.factory.FactoryFigura;
+import ws.domore.editorfigura.memento.Memento;
+import ws.domore.editorfigura.memento.Originator;
 import ws.domore.editorfigura.model.Figura;
 import ws.domore.manager.Constantes;
 
@@ -38,6 +40,7 @@ public class Editor extends JFrame implements ActionListener, MouseListener {
 	private static final String CIRCULO = constantes.getProp("figura.circulo");
 	
 	private static final String VOLTAR = constantes.getProp("botao.voltar");
+
 	private static final String APAGAR = constantes.getProp("botao.apagar");
 	
 	private static final String FIGURAS = constantes.getProp("titulo.figura");
@@ -176,5 +179,10 @@ public class Editor extends JFrame implements ActionListener, MouseListener {
 	public void mouseExited(MouseEvent e) {
 
 	}
+	
+	public static String getVoltar() {
+		return VOLTAR;
+	}
 
+	
 }
