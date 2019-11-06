@@ -33,6 +33,4 @@ class MeuPanel extends JPanel {
 		}
 	}
 
-
-
 }

@@ -18,5 +18,6 @@ public class FactoryFigura {
 			return new Circulo(x, y);
 		}
 		return null;
+
 	}
 }

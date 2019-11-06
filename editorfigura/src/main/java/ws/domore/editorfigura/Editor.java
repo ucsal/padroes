@@ -14,6 +14,7 @@ import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JColorChooser;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import ws.domore.editorfigura.enums.EnumFigura;
@@ -44,6 +45,8 @@ public class Editor extends JFrame implements ActionListener, MouseListener {
 
 	private static final String FIGURAS = constantes.getProp("titulo.figura");
 	private static final String TITULO_JFRAME_COR_BORDA = constantes.getProp("titulo.jcolorchooser.borda");
+	
+	private static final String MESSAGE_FIGURA_NAO_SELECIONADA = constantes.getProp("texto.message.figuranaoselecionada");
 
 	private JButton botaoQuadrado = new JButton(QUADRADO);
 	private JButton botaoCirculo = new JButton(CIRCULO);
@@ -57,8 +60,6 @@ public class Editor extends JFrame implements ActionListener, MouseListener {
 	private List<Figura> figuras = new ArrayList<Figura>();
 
 	private FactoryFigura factoryFigura = new FactoryFigura();
-
-	private static JFrame f = new JFrame();
 
 	// Criando um JPanel com layoutManager null
 	private JPanel painel = new MeuPanel(null, figuras);
@@ -169,7 +170,10 @@ public class Editor extends JFrame implements ActionListener, MouseListener {
 	public void mouseClicked(MouseEvent e) {
 		int x = e.getX();
 		int y = e.getY();
-
+		if (selecionado == null) {
+			JOptionPane.showMessageDialog(null, MESSAGE_FIGURA_NAO_SELECIONADA);
+			return;
+		}
 		figuras.add(factoryFigura.getFigura(x, y, selecionado));
 
 		this.painel.updateUI();
