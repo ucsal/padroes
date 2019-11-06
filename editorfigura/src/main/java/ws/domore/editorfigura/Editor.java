@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JButton;
+import javax.swing.JColorChooser;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -30,25 +31,26 @@ public class Editor extends JFrame implements ActionListener, MouseListener {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
 	static Constantes constantes = new Constantes();
-	
+
 	private static final String QUADRADO = constantes.getProp("figura.quadrado");
 	private static final String TRIANGULO = constantes.getProp("figura.triangulo");
 	private static final String CIRCULO = constantes.getProp("figura.circulo");
-	
+
 	private static final String VOLTAR = constantes.getProp("botao.voltar");
 	private static final String APAGAR = constantes.getProp("botao.apagar");
-	
-	private static final String FIGURAS = constantes.getProp("titulo.figura");
+	private static final String ESCOLHER_COR_BORDA = constantes.getProp("botao.cor.borda.escolher");
 
-	
+	private static final String FIGURAS = constantes.getProp("titulo.figura");
+	private static final String TITULO_JFRAME_COR_BORDA = constantes.getProp("titulo.jcolorchooser.borda");
+
 	private JButton botaoQuadrado = new JButton(QUADRADO);
 	private JButton botaoCirculo = new JButton(CIRCULO);
 	private JButton botaoTriangulo = new JButton(TRIANGULO);
 	private JButton botaoLimparUltimoDesenho = new JButton(VOLTAR);
 	private JButton botaoApagar = new JButton(APAGAR);
-
+	private JButton botaoEscolherCorBorda = new JButton(ESCOLHER_COR_BORDA);
 
 	private EnumFigura selecionado = null;
 
@@ -56,13 +58,14 @@ public class Editor extends JFrame implements ActionListener, MouseListener {
 
 	private FactoryFigura factoryFigura = new FactoryFigura();
 
+	private static JFrame f = new JFrame();
+
 	// Criando um JPanel com layoutManager null
 	private JPanel painel = new MeuPanel(null, figuras);
 
 	public Editor() {
 		createWindow();
 		buttonActions();
-
 		painel.addMouseListener(this);
 
 		windowConfigs();
@@ -85,6 +88,7 @@ public class Editor extends JFrame implements ActionListener, MouseListener {
 		botaoTriangulo.addActionListener(this);
 		botaoApagar.addActionListener(this);
 		botaoLimparUltimoDesenho.addActionListener(this);
+		botaoEscolherCorBorda.addActionListener(this);
 	}
 
 	private void createWindow() {
@@ -99,6 +103,7 @@ public class Editor extends JFrame implements ActionListener, MouseListener {
 		botoes.add(botaoTriangulo);
 		botoes.add(botaoLimparUltimoDesenho);
 		botoes.add(botaoApagar);
+		botoes.add(botaoEscolherCorBorda);
 
 		JPanel lateral = new JPanel();
 		lateral.add(botoes);
@@ -113,11 +118,13 @@ public class Editor extends JFrame implements ActionListener, MouseListener {
 
 	public void actionPerformed(ActionEvent e) {
 		JButton botao = (JButton) e.getSource();
-		tipoBotaoSelecionado(botao,QUADRADO,EnumFigura.QUADRADO);
-		tipoBotaoSelecionado(botao,CIRCULO,EnumFigura.CIRCULO);
-		tipoBotaoSelecionado(botao,TRIANGULO,EnumFigura.TRIANGULO);
+
+		tipoBotaoSelecionado(botao, QUADRADO, EnumFigura.QUADRADO);
+		tipoBotaoSelecionado(botao, CIRCULO, EnumFigura.CIRCULO);
+		tipoBotaoSelecionado(botao, TRIANGULO, EnumFigura.TRIANGULO);
 		limparTela(botao);
 		apagarUltimaFigura(botao);
+		escolherCorBorda(botao);
 		this.painel.updateUI();
 
 	}
@@ -126,7 +133,7 @@ public class Editor extends JFrame implements ActionListener, MouseListener {
 		if (botao.getText().contains(VOLTAR)) {
 			selecionado = null;
 			if (!figuras.isEmpty()) {
-				figuras.remove(figuras.size()-1);
+				figuras.remove(figuras.size() - 1);
 			}
 		}
 	}
@@ -138,14 +145,25 @@ public class Editor extends JFrame implements ActionListener, MouseListener {
 		}
 	}
 
+	private void escolherCorBorda(JButton botao) {
+		if (botao.getText().contains(ESCOLHER_COR_BORDA)) {
+			openColorChooser();
+
+		}
+	}
+
+	private void openColorChooser() {
+
+		Color c = JColorChooser.showDialog(this, TITULO_JFRAME_COR_BORDA, Color.BLACK);
+		MeuPanel.corAtual = c;
+
+	}
+
 	private void tipoBotaoSelecionado(JButton botao, String figura, EnumFigura figuraEnum) {
 		if (botao.getText().contains(figura)) {
 			selecionado = figuraEnum;
 		}
 	}
-
-
-
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
