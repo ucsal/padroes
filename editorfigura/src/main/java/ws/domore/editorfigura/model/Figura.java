@@ -5,7 +5,6 @@ import java.awt.Shape;
 
 public interface Figura {
 
-
 	Color getCorLinha();
 
 	void setCorLinha(Color corLinha);
