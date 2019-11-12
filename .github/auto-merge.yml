@@ -1,0 +1,16 @@
+
+minApprovals:
+  MEMBER: 8
+  COLLABORATOR: 4
+
+maxRequestedChanges:
+  COLLABORATOR: 0
+
+updateBranch: true
+
+mergeMethod: merge
+
+blockingLabels:
+- blocked
+
+blockingTitleRegex: '\bwip\b'
