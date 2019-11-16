@@ -1,7 +1,7 @@
 
 minApprovals:
-  MEMBER: 8
-  COLLABORATOR: 4
+  MEMBER: 3
+  COLLABORATOR: 1
 
 maxRequestedChanges:
   COLLABORATOR: 0
