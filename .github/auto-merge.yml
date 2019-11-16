@@ -1,6 +1,6 @@
 
 minApprovals:
-  MEMBER: 3
+  MEMBER: 2
   COLLABORATOR: 1
 
 maxRequestedChanges:
