@@ -1,26 +1,20 @@
 package ws.domore.editorfigura;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.GridLayout;
-import java.awt.Toolkit;
+import ws.domore.editorfigura.enums.EnumFigura;
+import ws.domore.editorfigura.factory.FactoryFigura;
+import ws.domore.editorfigura.memento.CareTaker;
+import ws.domore.editorfigura.memento.Originator;
+import ws.domore.editorfigura.model.Figura;
+import ws.domore.manager.Constantes;
+
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.swing.JButton;
-import javax.swing.JColorChooser;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-
-import ws.domore.editorfigura.enums.EnumFigura;
-import ws.domore.editorfigura.factory.FactoryFigura;
-import ws.domore.editorfigura.model.Figura;
-import ws.domore.manager.Constantes;
 
 /**
  *
@@ -57,6 +51,8 @@ public class Editor extends JFrame implements ActionListener, MouseListener {
 
 	private EnumFigura selecionado = null;
 
+	private Originator originator = new Originator();
+	private CareTaker careTaker = new CareTaker();
 	private List<Figura> figuras = new ArrayList<Figura>();
 
 	private FactoryFigura factoryFigura = new FactoryFigura();
@@ -68,7 +64,7 @@ public class Editor extends JFrame implements ActionListener, MouseListener {
 		createWindow();
 		buttonActions();
 		painel.addMouseListener(this);
-
+		save();
 		windowConfigs();
 	}
 
@@ -127,14 +123,13 @@ public class Editor extends JFrame implements ActionListener, MouseListener {
 		apagarUltimaFigura(botao);
 		escolherCorBorda(botao);
 		this.painel.updateUI();
-
 	}
 
 	private void apagarUltimaFigura(JButton botao) {
 		if (botao.getText().contains(VOLTAR)) {
 			selecionado = null;
 			if (!figuras.isEmpty()) {
-				figuras.remove(figuras.size() - 1);
+				restore();
 			}
 		}
 	}
@@ -143,13 +138,13 @@ public class Editor extends JFrame implements ActionListener, MouseListener {
 		if (botao.getText().contains(APAGAR)) {
 			figuras.clear();
 			selecionado = null;
+			save();;
 		}
 	}
 
 	private void escolherCorBorda(JButton botao) {
 		if (botao.getText().contains(ESCOLHER_COR_BORDA)) {
 			openColorChooser();
-
 		}
 	}
 
@@ -174,8 +169,23 @@ public class Editor extends JFrame implements ActionListener, MouseListener {
 			JOptionPane.showMessageDialog(null, MESSAGE_FIGURA_NAO_SELECIONADA);
 			return;
 		}
+
 		figuras.add(factoryFigura.getFigura(x, y, selecionado));
 
+		save();
+
+		this.painel.updateUI();
+	}
+
+	private void save() {
+		careTaker.add(originator.save());
+		originator.setState(figuras);
+
+	}
+
+	private void restore() {
+		originator.restore(careTaker.get());
+		figuras.retainAll(originator.getLatestState());
 		this.painel.updateUI();
 	}
 

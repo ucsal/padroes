@@ -1,29 +1,27 @@
 package ws.domore.editorfigura.memento;
 
-import ws.domore.editorfigura.Editor;
+import ws.domore.editorfigura.model.Figura;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Originator {
 	
-	private String state = Editor.getVoltar();
+	private List<Figura> state = new ArrayList<>();
 
-	
-	public Memento createMemento() {
-		System.out.println("Salvou estado = " + state);
+	public void setState(List<Figura> state) {
+		this.state = new ArrayList<>(state);
+	}
+
+	public Memento save() {
         return new Memento(state);
 	}
 
-	public void setMemento(Memento m) {
-		System.out.println("Recumperou estado = " + m.getState());
-		this.state = m.getState();
-	}
-    //exemplos de ações do botão voltar
-	public void apagarlinha() {
-		this.state = "Linha apagada";
-	}
-	
-	public void voltar() {
-		this.state = "Voltando paara o estado anterior. ";
+	public void restore(Memento m) {
+		this.state = new ArrayList<>(m.getState());
 	}
 
-	
+	public List<Figura> getLatestState() {
+		return this.state;
+	}
 }

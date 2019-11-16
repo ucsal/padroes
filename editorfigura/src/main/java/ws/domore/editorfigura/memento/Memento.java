@@ -1,19 +1,18 @@
 package ws.domore.editorfigura.memento;
 
+import ws.domore.editorfigura.model.Figura;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Memento {
-	private String state;
+	private List<Figura> state;
 
-	public Memento(String state) {
-		this.state = state;
+	public Memento(List<Figura> state) {
+		this.state = new ArrayList<>(state);
 	}
 
-	public String getState() {
-		return state;
+	public List<Figura> getState() {
+		return new ArrayList<>(this.state);
 	}
-
-	public void setState(String state) {
-		this.state = state;
-	}
-
 }
