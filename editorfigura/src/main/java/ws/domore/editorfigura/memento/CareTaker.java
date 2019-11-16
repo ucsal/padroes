@@ -11,6 +11,9 @@ public class CareTaker {
 	}
 
 	public Memento get() {
+		if (states.size() == 0) {
+			return null;
+		}
 		return states.pop();
 	}
 }

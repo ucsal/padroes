@@ -3,6 +3,7 @@ package ws.domore.editorfigura;
 import ws.domore.editorfigura.enums.EnumFigura;
 import ws.domore.editorfigura.factory.FactoryFigura;
 import ws.domore.editorfigura.memento.CareTaker;
+import ws.domore.editorfigura.memento.Memento;
 import ws.domore.editorfigura.memento.Originator;
 import ws.domore.editorfigura.model.Figura;
 import ws.domore.manager.Constantes;
@@ -128,17 +129,15 @@ public class Editor extends JFrame implements ActionListener, MouseListener {
 	private void apagarUltimaFigura(JButton botao) {
 		if (botao.getText().contains(VOLTAR)) {
 			selecionado = null;
-			if (!figuras.isEmpty()) {
-				restore();
-			}
+			restore();
 		}
 	}
 
 	private void limparTela(JButton botao) {
 		if (botao.getText().contains(APAGAR)) {
 			figuras.clear();
+			save();
 			selecionado = null;
-			save();;
 		}
 	}
 
@@ -184,9 +183,20 @@ public class Editor extends JFrame implements ActionListener, MouseListener {
 	}
 
 	private void restore() {
-		originator.restore(careTaker.get());
-		figuras.retainAll(originator.getLatestState());
-		this.painel.updateUI();
+		Memento m = careTaker.get();
+
+		if (m != null) {
+			originator.restore(m);
+			List<Figura> latestState = originator.getLatestState();
+
+			if (figuras.isEmpty()) {
+				figuras.addAll(latestState);
+			} else {
+				figuras.retainAll(latestState);
+			}
+
+			this.painel.updateUI();
+		}
 	}
 
 	@Override
