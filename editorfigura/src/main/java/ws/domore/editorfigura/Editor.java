@@ -1,5 +1,25 @@
 package ws.domore.editorfigura;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.GridLayout;
+import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.swing.JButton;
+import javax.swing.JColorChooser;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+
+import ws.domore.builder.ExportadorBuilder;
+import ws.domore.builder.ExportadorCSV;
+import ws.domore.builder.ExportadorJSON;
 import ws.domore.editorfigura.enums.EnumFigura;
 import ws.domore.editorfigura.factory.FactoryFigura;
 import ws.domore.editorfigura.memento.CareTaker;
@@ -7,15 +27,6 @@ import ws.domore.editorfigura.memento.Memento;
 import ws.domore.editorfigura.memento.Originator;
 import ws.domore.editorfigura.model.Figura;
 import ws.domore.manager.Constantes;
-
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  *
@@ -37,11 +48,15 @@ public class Editor extends JFrame implements ActionListener, MouseListener {
 	private static final String VOLTAR = constantes.getProp("botao.voltar");
 	private static final String APAGAR = constantes.getProp("botao.apagar");
 	private static final String ESCOLHER_COR_BORDA = constantes.getProp("botao.cor.borda.escolher");
+	private static final String EXPORTAR_JSON = constantes.getProp("botao.exportarjson");
+	private static final String EXPORTAR_CSV = constantes.getProp("botao.exportarcsv");
+
 
 	private static final String FIGURAS = constantes.getProp("titulo.figura");
 	private static final String TITULO_JFRAME_COR_BORDA = constantes.getProp("titulo.jcolorchooser.borda");
-	
+
 	private static final String MESSAGE_FIGURA_NAO_SELECIONADA = constantes.getProp("texto.message.figuranaoselecionada");
+
 
 	private JButton botaoQuadrado = new JButton(QUADRADO);
 	private JButton botaoCirculo = new JButton(CIRCULO);
@@ -49,6 +64,8 @@ public class Editor extends JFrame implements ActionListener, MouseListener {
 	private JButton botaoLimparUltimoDesenho = new JButton(VOLTAR);
 	private JButton botaoApagar = new JButton(APAGAR);
 	private JButton botaoEscolherCorBorda = new JButton(ESCOLHER_COR_BORDA);
+	private JButton botaoExportarCSV = new JButton(EXPORTAR_CSV);
+	private JButton botaoExportarJSON = new JButton(EXPORTAR_JSON);
 
 	private EnumFigura selecionado = null;
 
@@ -57,6 +74,8 @@ public class Editor extends JFrame implements ActionListener, MouseListener {
 	private List<Figura> figuras = new ArrayList<Figura>();
 
 	private FactoryFigura factoryFigura = new FactoryFigura();
+	
+	private ExportadorBuilder builder;
 
 	// Criando um JPanel com layoutManager null
 	private JPanel painel = new MeuPanel(null, figuras);
@@ -87,6 +106,9 @@ public class Editor extends JFrame implements ActionListener, MouseListener {
 		botaoApagar.addActionListener(this);
 		botaoLimparUltimoDesenho.addActionListener(this);
 		botaoEscolherCorBorda.addActionListener(this);
+		botaoExportarCSV.addActionListener(this);
+		botaoExportarJSON.addActionListener(this);
+
 	}
 
 	private void createWindow() {
@@ -102,6 +124,8 @@ public class Editor extends JFrame implements ActionListener, MouseListener {
 		botoes.add(botaoLimparUltimoDesenho);
 		botoes.add(botaoApagar);
 		botoes.add(botaoEscolherCorBorda);
+		botoes.add(botaoExportarCSV);
+		botoes.add(botaoExportarJSON);
 
 		JPanel lateral = new JPanel();
 		lateral.add(botoes);
@@ -123,7 +147,20 @@ public class Editor extends JFrame implements ActionListener, MouseListener {
 		limparTela(botao);
 		apagarUltimaFigura(botao);
 		escolherCorBorda(botao);
+		exportarImagem(botao);
 		this.painel.updateUI();
+	}
+	
+	
+	
+	private void exportarImagem(JButton botao) {
+		if (botao.getText().contains(EXPORTAR_JSON)) {
+			builder = new ExportadorJSON();
+			builder.exportar(figuras);
+		}else if(botao.getText().contains(EXPORTAR_CSV)){
+			builder = new ExportadorCSV();
+			builder.exportar(figuras);
+		}
 	}
 
 	private void apagarUltimaFigura(JButton botao) {
@@ -198,6 +235,8 @@ public class Editor extends JFrame implements ActionListener, MouseListener {
 			this.painel.updateUI();
 		}
 	}
+
+	
 
 	@Override
 	public void mousePressed(MouseEvent e) {
