@@ -1,4 +1,4 @@
-package ws.domore.builder;
+package ws.domore.editorfigura.builder;
 
 import java.util.List;
 

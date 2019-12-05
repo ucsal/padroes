@@ -17,9 +17,9 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-import ws.domore.builder.ExportadorBuilder;
-import ws.domore.builder.ExportadorCSV;
-import ws.domore.builder.ExportadorJSON;
+import ws.domore.editorfigura.builder.ExportadorBuilder;
+import ws.domore.editorfigura.builder.ExportadorCSV;
+import ws.domore.editorfigura.builder.ExportadorJSON;
 import ws.domore.editorfigura.enums.EnumFigura;
 import ws.domore.editorfigura.factory.FactoryFigura;
 import ws.domore.editorfigura.memento.CareTaker;
